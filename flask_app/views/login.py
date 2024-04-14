@@ -1,10 +1,7 @@
 from flask_app import app
 from flask import render_template
 import yfinance as yf
-import pandas as pd
-from pandas_datareader import data as pdr
 import datetime
-import mplfinance as mf
 
 @app.route('/')
 def index():
@@ -12,18 +9,14 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
-    start = datetime.date(datetime.datetime.now().year - 1, datetime.datetime.now().month, datetime.datetime.now().day)
-    end = datetime.datetime.now()
     
-    #ticker = yf.Ticker('GOOGL').info
-    #price = ticker['currentPrice']
-
     ticker = '9984.T'
-    #history = yf.download(ticker, start, end)
-    #chart = mf.plot(history)
     
-    #yf.pdr_override()
-    #df = pdr.get_data_yahoo(ticker, start, end)
+    history = yf.Ticker(ticker).history()
+    axes = history.axes[0]
+    open = history.Open.values
+    high = history.High.values
+    low = history.Low.values
+    close = history.Close.values
     
-    tickerInfo = yf.Ticker(ticker)
-    return render_template('top.html', price = tickerInfo.history(period='max'))
+    return render_template('top.html', axes = axes, open = open, high = high, low = low, close = close)
