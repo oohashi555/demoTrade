@@ -12,7 +12,7 @@ def login():
     
     ticker = '9984.T'
     
-    history = yf.Ticker(ticker).history()
+    history = yf.download(ticker,period = '1y', interval = '1wk')
     axes = history.axes[0]
     open = history.Open.values
     high = history.High.values
