@@ -3,9 +3,10 @@ from flask import render_template
 import yfinance as yf
 import datetime
 
-@app.route('/')
-def index():
-    return render_template('login.html')
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -1,5 +1,7 @@
 from flask import Flask
-app = Flask(__name__)
+app = Flask(__name__,
+            static_folder='../frontend/dist/static',
+            template_folder='../frontend/dist')
 app.config.from_object('flask_app.config')
 
 import flask_app.views.login
