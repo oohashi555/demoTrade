@@ -1,24 +1,16 @@
 <script setup>
-import {ref} from 'vue'
-import axios from 'axios'
+//import {ref} from 'vue'
+//import axios from 'axios'
 import {useRouter}  from 'vue-router'
 
-const msg = ref('')
 const router = useRouter()
-
-function sayHello(){
-	const path = 'http://localhost:5000/api/hello/e'
-	axios.get(path)
-		.then(response => {
-		msg.value = response.data.msg
-	})
-	.catch(error => {
-		console.log(error)
-	})
-}
 
 function login(){
 	router.push('top')
+}
+
+function userList(){
+	router.push('userList')
 }
 
 </script>
@@ -31,7 +23,10 @@ function login(){
 			<input type="text" name="passWord" class="form-control">
 		</div>
 		<div class="form-group">
-			<button @click="login" class="btn btn-primary">ログイン</button><button @click="sayHello"/>
+			<button @click="login" class="btn btn-primary">ログイン</button>
+		</div>
+		<div class="form-group">
+			<button @click="userList" class="btn btn-primary">ユーザ管理</button>
 		</div>
 	</div>
 </template>

@@ -1,11 +1,15 @@
 import pandas as pd
 import sqlite3
 import flask_app.db.ticker_info as ticker
+import flask_app.db.user_info as user
 from flask_app import app
 
 def create_db():
     # DBコネクション取得
     con = sqlite3.connect(app.config['DATABASE'])
+    
+    # ユーザ管理テーブル作成
+    user.create_table(con)
     
     # 証券コードテーブル作成
     ticker.create_table(con)
