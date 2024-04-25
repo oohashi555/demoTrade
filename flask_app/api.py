@@ -15,9 +15,9 @@ def user_regist():
     data = user.select()
     return jsonify(data)
 
-@api.route('/user/delete')
+@api.route('/user/delete', methods=['POST'])
 def user_delete():
     form = request.get_json()
-    user.regist(form)
-    data = user.delete()
+    user.delete(form)
+    data = user.select()
     return jsonify(data)

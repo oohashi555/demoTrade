@@ -1,22 +1,6 @@
 <script setup>
-import {ref} from 'vue'
 
-defineProps({
-    show: Boolean
-})
-const emit = defineEmits(['close', 'regist'])
-
-const user = ref({name:'', password:''})
-
-function close(){
-  emit('close')
-  user.value = {name:'', password:''}
-}
-
-function regist(){
-  emit('regist', user.value)
-  user.value = {name:'', password:''}
-}
+defineProps(['show','msg','yes','no'])
 
 </script>
 <template>
@@ -24,12 +8,11 @@ function regist(){
         <div v-if="show" class="modal-mask">
             <div class="modal-container">
                 <div class="modal-body">
-                    ユーザ名：<input v-model="user.name">
-                    パスワード：<input v-model="user.password">
+                    {{ msg }}
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-default-button" @click="regist">登録</button>
-                    <button class="modal-default-button" @click="close">閉じる</button>
+                    <button class="modal-default-button" @click="$emit('ok')">{{ yes }}</button>
+                    <button class="modal-default-button" @click="$emit('no')">{{ no }}</button>
                 </div>
             </div>
         </div>
