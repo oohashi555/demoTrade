@@ -57,7 +57,7 @@ onMounted(() => {
 })
 </script>
 <template>
-	<div class="container-fluid">
+	<div class="container">
 		<li v-for="user in userList" :key="user.id">
 			ユーザID：{{ user[0] }}
 			ユーザ名：{{ user[1] }}
