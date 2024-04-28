@@ -15,6 +15,13 @@ def user_regist():
     data = user.select()
     return jsonify(data)
 
+@api.route('/user/update', methods=['POST'])
+def user_update():
+    form = request.get_json()
+    user.update(form)
+    data = user.select()
+    return jsonify(data)
+
 @api.route('/user/delete', methods=['POST'])
 def user_delete():
     form = request.get_json()

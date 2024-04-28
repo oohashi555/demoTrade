@@ -14,6 +14,12 @@ def regist(data):
     con.commit()
     con.close()
 
+def update(data):
+    con = sqlite3.connect(app.config['DATABASE'])
+    user_list = user.update(con,data)
+    con.commit()
+    con.close()
+
 def delete(data):
     con = sqlite3.connect(app.config['DATABASE'])
     user_list = user.delete(con,data)

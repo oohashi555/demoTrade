@@ -1,21 +1,36 @@
 <script setup>
 import {ref} from 'vue'
 
-defineProps({
-    show: Boolean
-})
-const emit = defineEmits(['close', 'regist'])
+const props = defineProps(['show', 'newUser'])
 
-const user = ref({name:'', password:''})
+const emit = defineEmits(['close', 'regist', 'update'])
+
+defineExpose({setUserInfo})
+
+const user = ref({id:'', name:'', password:''})
 
 function close(){
   emit('close')
-  user.value = {name:'', password:''}
+  resetForm()
 }
 
 function regist(){
   emit('regist', user.value)
-  user.value = {name:'', password:''}
+  resetForm()
+}
+
+function update(){
+  emit('update', user.value)
+  resetForm()
+}
+
+function setUserInfo(id, userName){
+  user.value.id = id
+  user.value.name = userName
+}
+
+function resetForm(){
+  user.value = {id:'', name:'', password:''}
 }
 
 </script>
@@ -25,10 +40,11 @@ function regist(){
             <div class="modal-container">
                 <div class="modal-body">
                     ユーザ名：<input v-model="user.name">
-                    パスワード：<input v-model="user.password">
+                    パスワード：<input v-model="user.password" type="password">
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-default-button" @click="regist">登録</button>
+                    <button v-if="newUser" class="modal-default-button" @click="regist">登録</button>
+                    <button v-else class="modal-default-button" @click="update">更新</button>
                     <button class="modal-default-button" @click="close">閉じる</button>
                 </div>
             </div>
