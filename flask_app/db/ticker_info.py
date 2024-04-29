@@ -4,7 +4,7 @@ def create_table(con):
 	con.execute( \
 		'CREATE TABLE IF NOT EXISTS TICKER_INFO ( \
 		CODE TEXT PRIMARY KEY, \
-		NAME TEXT, \
+		NAME TEXT NOT NULL, \
 		MARKET TEXT , \
 		INDUSTRY_CODE TEXT , \
 		INDUSTRY TEXT )')

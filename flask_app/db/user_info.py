@@ -4,8 +4,8 @@ def create_table(con):
 	con.execute( \
 		'CREATE TABLE IF NOT EXISTS USER_INFO ( \
 		ID INTEGER PRIMARY KEY AUTOINCREMENT, \
-		NAME TEXT, \
-		PASSWORD TEXT )')
+		NAME TEXT NOT NULL, \
+		PASSWORD TEXT NOT NULL )')
 	
 def check_password(con,data):
 	return con.execute('SELECT COUNT(*) CNT FROM USER_INFO WHERE ID = ?, PASSWORD = ?',[data['id'], data['password']]).fetchall()[0][0] == 1

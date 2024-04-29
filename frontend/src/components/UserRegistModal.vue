@@ -2,26 +2,36 @@
 import {ref} from 'vue'
 
 const props = defineProps(['show', 'newUser'])
-
 const emit = defineEmits(['close', 'regist', 'update'])
-
 defineExpose({setUserInfo})
 
 const user = ref({id:'', name:'', password:''})
+const errors = ref([])
 
 function close(){
+  errors.value = []
   emit('close')
   resetForm()
 }
 
 function regist(){
-  emit('regist', user.value)
-  resetForm()
+  errors.value = []
+  checkUserName()
+  checkPassword()
+  if(errors.value.length == 0){
+    emit('regist', user.value)
+    resetForm()
+  }
 }
 
 function update(){
-  emit('update', user.value)
-  resetForm()
+  errors.value = []
+  checkUserName()
+  checkPassword()
+  if(errors.value.length == 0){
+    emit('update', user.value)
+    resetForm()
+  }
 }
 
 function setUserInfo(id, userName){
@@ -33,13 +43,26 @@ function resetForm(){
   user.value = {id:'', name:'', password:''}
 }
 
+function checkUserName(){
+  if(user.value.name == ''){
+    errors.value.push('ユーザ名を入力してください')
+  }
+}
+
+function checkPassword(){
+  if(user.value.password == ''){
+    errors.value.push('パスワードを入力してください')
+  }
+}
+
 </script>
 <template>
     <Transition name="modal">
         <div v-if="show" class="modal-mask">
             <div class="modal-container">
                 <div class="modal-body">
-                    ユーザ名：<input v-model="user.name">
+                    <p v-for="(error, key) in errors" :key="key" class="text-danger">{{error}}</p>
+                    ユーザ名：<input v-model.trim="user.name">
                     パスワード：<input v-model="user.password" type="password">
                 </div>
                 <div class="modal-footer">
