@@ -5,7 +5,7 @@ const props = defineProps(['show', 'newUser'])
 const emit = defineEmits(['close', 'regist', 'update'])
 defineExpose({setUserInfo})
 
-const user = ref({id:'', name:'', password:''})
+const user = ref({user_id:'', name:'', password:''})
 const errors = ref([])
 
 function close(){
@@ -34,13 +34,13 @@ function update(){
   }
 }
 
-function setUserInfo(id, userName){
-  user.value.id = id
+function setUserInfo(userId, userName){
+  user.value.user_id = userId
   user.value.name = userName
 }
 
 function resetForm(){
-  user.value = {id:'', name:'', password:''}
+  user.value = {user_id:'', name:'', password:''}
 }
 
 function checkUserName(){

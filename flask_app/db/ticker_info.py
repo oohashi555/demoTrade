@@ -3,7 +3,7 @@ import sqlite3
 def create_table(con):
 	con.execute( \
 		'CREATE TABLE IF NOT EXISTS TICKER_INFO ( \
-		CODE TEXT PRIMARY KEY, \
+		TICKER_CODE TEXT PRIMARY KEY, \
 		NAME TEXT NOT NULL, \
 		MARKET TEXT , \
 		INDUSTRY_CODE TEXT , \

@@ -32,8 +32,9 @@ def user_delete():
 
 @api.route('/getchart', methods=['POST'])
 def get_chart():
-    ticker = '9984.T'
+    form = request.get_json()
     
+    ticker = form['ticker']
     history = yf.download(ticker,period = '1y', interval = '1wk')
     axes = history.axes[0]
     open = history.Open.values

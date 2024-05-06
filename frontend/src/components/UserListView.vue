@@ -45,7 +45,7 @@ function updateUser(user){
 
 function deleteUser(){
 	const path = 'http://localhost:5000/api/user/delete'
-	axios.post(path, {id:selectUserId.value})
+	axios.post(path, {user_id:selectUserId.value})
 		.then(response => {
 			userList.value = response.data
 			errMsg.value = ''
@@ -63,14 +63,14 @@ function clickAdd(){
 	showUserModal.value = true
 }
 
-function clickUpdate(id, userName){
-	userModal.value.setUserInfo(id, userName)
+function clickUpdate(userId, userName){
+	userModal.value.setUserInfo(userId, userName)
 	newUser.value = false
 	showUserModal.value = true
 }
 
-function clickDelete(id){
-	selectUserId.value = id
+function clickDelete(userId){
+	selectUserId.value = userId
 	showConfirm.value = true
 }
 
