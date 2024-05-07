@@ -45,3 +45,11 @@ def delete(data):
         con.rollback()
     finally:
         con.close()
+
+def check_password(data):
+    con = sqlite3.connect(app.config['DATABASE'])
+    try:
+        ok = user.check_password(con, data)
+    finally:
+        con.close()
+    return ok

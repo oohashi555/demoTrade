@@ -47,3 +47,9 @@ def get_chart():
         data.append({'x':axes[i].timestamp() * 1000, 'o':open[i], 'h':high[i], 'l':low[i], 'c':close[i]})
     
     return jsonify(data)
+
+@api.route('/login', methods=['POST'])
+def login():
+    form = request.get_json()
+    data = user.check_password(form)
+    return jsonify(data)

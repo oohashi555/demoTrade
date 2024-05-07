@@ -8,7 +8,7 @@ def create_table(con):
 		PASSWORD TEXT NOT NULL )')
 	
 def check_password(con,data):
-	return con.execute('SELECT COUNT(*) CNT FROM USER_INFO WHERE USER_ID = ?, PASSWORD = ?',[data['user_id'], data['password']]).fetchall()[0][0] == 1
+	return con.execute('SELECT COUNT(*) CNT FROM USER_INFO WHERE USER_ID = ? AND PASSWORD = ?',[data['user_id'], data['password']]).fetchall()[0][0] == 1
 
 def select_all(con):
     return con.execute('SELECT USER_ID, NAME FROM USER_INFO').fetchall()

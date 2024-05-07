@@ -2,8 +2,11 @@
 import {ref} from 'vue'
 import axios from 'axios'
 import { onMounted } from 'vue'
+import {useRouter}  from 'vue-router'
 import {createCandleChart, updateChart} from './candleStick'
+import { store } from './store.js'
 
+const router = useRouter()
 const ctx = ref(null)
 const errMsg = ref()
 const data = ref(null)
@@ -24,7 +27,6 @@ function getChart(ticker, label, drawChart){
 			drawChart(data.value, label, ctx.value.getContext('2d'))
 		})
 		.catch(error => {
-			alert()
 			errMsg.value = 'データ取得に失敗しました'
 			console.log(error)
 		})
@@ -35,8 +37,12 @@ function changeIndex(){
 }
 
 onMounted(() => {
-	selectedIndex.value = indexOptions.value[0].value
-	getChart(indexOptions.value[0].value, indexOptions.value[0].text, createCandleChart)
+	if(store.userId == ''){
+		router.push('/')
+	}else{
+		selectedIndex.value = indexOptions.value[0].value
+		getChart(indexOptions.value[0].value, indexOptions.value[0].text, createCandleChart)
+	}
 })
 </script>
 <template>
