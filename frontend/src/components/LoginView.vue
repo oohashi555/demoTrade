@@ -58,11 +58,11 @@ function userList(){
 		<p v-for="(error, key) in errors" :key="key" class="text-danger">{{error}}</p>
 			<div class="form-group">
 				<label for="userId">ユーザID</label>
-				<input type="text" class="form-control" v-model="user.user_id">
+				<input type="text" id="userId" class="form-control" v-model="user.user_id">
 			</div>
 			<div class="form-group">
 				<label for="password">パスワード</label>
-				<input type="password" class="form-control" v-model="user.password">
+				<input type="password" id="password" class="form-control" v-model="user.password">
 			</div>
 			<div class="form-group">
 				<button @click="login" class="btn btn-primary">ログイン</button>

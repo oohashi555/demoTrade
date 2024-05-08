@@ -38,5 +38,6 @@ def create_db():
             con.commit()
     except Exception:
         con.rollback()
+        raise
     finally:
         con.close()

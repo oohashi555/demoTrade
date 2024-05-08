@@ -7,7 +7,8 @@ def create_table(con):
 		USER_ID INTEGER NOT NULL, \
 		TICKER_CODE TEXT NOT NULL, \
 		BUYSELL TEXT NOT NULL, \
-		PRICE INTEGER NOT NULL, \
+		ORDER_PRICE INTEGER NOT NULL, \
+		KESSAI_PRICE INTEGER NOT NULL, \
 		LOT INTEGER NOT NULL, \
       	ACTIVE_FLAG INTEGER DEFAULT 0 NOT NULL)')
 
@@ -15,11 +16,11 @@ def create_index(con):
 	con.execute('CREATE INDEX IF NOT EXISTS POSITION_INDEX ON POSITION(USER_ID)')
 
 def select_position_list(con, data):
-    return con.execute('SELECT POSITION_ID, TICKER_CODE, BUYSELL, PRICE, LOT FROM POSITION WHERE USER_ID = ? AND ACTIVE_FLAG = 0', [data['user_id']]).fetchall()
+    return con.execute('SELECT POSITION_ID, TICKER_CODE, BUYSELL, ORDER_PRICE, KESSAI_PRICE, LOT FROM POSITION WHERE USER_ID = ? AND ACTIVE_FLAG = 0', [data['user_id']]).fetchall()
 
 def insert(con,data):
-	con.execute('INSERT INTO POSITION (USER_ID, TICKER_CODE, BUYSELL, PRICE, LOT) VALUES(?, ?, ?, ?, ?)', \
-     			[data['user_id'], data['ticker_code'], data['buysell'], data['price'], data['lot']])
+	con.execute('INSERT INTO POSITION (USER_ID, TICKER_CODE, BUYSELL, ORDER_PRICE, KESSAI_PRICE, LOT) VALUES(?, ?, ?, ?, ?, ?)', \
+     			[data['user_id'], data['ticker_code'], data['buysell'], data['order_price'], data['kessai_price'], data['lot']])
 
 def delete(con,data):
     con.execute('DELETE FROM POSITION WHERE USER_ID = ?',[data['user_id']])

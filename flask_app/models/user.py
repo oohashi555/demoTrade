@@ -21,6 +21,7 @@ def regist(data):
         con.commit()
     except Exception:
         con.rollback()
+        raise
     finally:
         con.close()
 
@@ -31,6 +32,7 @@ def update(data):
         con.commit()
     except Exception:
         con.rollback()
+        raise
     finally:
         con.close()
 
@@ -43,6 +45,7 @@ def delete(data):
         con.commit()
     except Exception:
         con.rollback()
+        raise
     finally:
         con.close()
 
