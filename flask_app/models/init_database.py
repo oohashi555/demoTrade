@@ -2,7 +2,6 @@ import pandas as pd
 import sqlite3
 import flask_app.db.ticker_info as ticker
 import flask_app.db.user_info as user
-import flask_app.db.user_account as user_ac
 import flask_app.db.position as pos
 from flask_app import app
 
@@ -14,9 +13,6 @@ def create_db():
         # ユーザ管理テーブル作成
         user.create_table(con)
         
-        # ユーザアカウントテーブル作成
-        user_ac.create_table(con)
-        
         # ポジションテーブル作成
         pos.create_table(con)
         pos.create_index(con)
@@ -26,15 +22,11 @@ def create_db():
         
         # 証券コードデータの登録
         if ticker.count(con) == 0:
-            ticker.create_index(con)
-            excel = pd.read_excel('flask_app/data_j.xls')
+            excel = pd.read_excel('flask_app/data_i.xls')
             for i in range(len(excel)):
                 ticker.insert(con,\
-                                [excel.iloc[i, 1],\
-                                excel.iloc[i, 2],\
-                                excel.iloc[i, 3],\
-                                str(excel.iloc[i, 4]).replace('-',''),\
-                                str(excel.iloc[i, 5]).replace('-','')])
+                                [excel.iloc[i, 0],\
+                                excel.iloc[i, 1]])
             con.commit()
     except Exception:
         con.rollback()

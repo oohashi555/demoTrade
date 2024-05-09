@@ -16,7 +16,14 @@ def create_index(con):
 	con.execute('CREATE INDEX IF NOT EXISTS POSITION_INDEX ON POSITION(USER_ID)')
 
 def select_position_list(con, data):
-    return con.execute('SELECT POSITION_ID, TICKER_CODE, BUYSELL, ORDER_PRICE, KESSAI_PRICE, LOT FROM POSITION WHERE USER_ID = ? AND ACTIVE_FLAG = 0', [data['user_id']]).fetchall()
+    return con.execute('SELECT POS.POSITION_ID, POS.TICKER_CODE, POS.BUYSELL, POS.ORDER_PRICE, POS.KESSAI_PRICE, POS.LOT, TIC.NAME FROM POSITION POS \
+						INNER JOIN TICKER_INFO TIC ON POS.TICKER_CODE = TIC.TICKER_CODE \
+        				WHERE POS.USER_ID = ? AND POS.ACTIVE_FLAG = 0', [data['user_id']]).fetchall()
+
+def select_position_history(con, data):
+    return con.execute('SELECT POS.POSITION_ID, POS.TICKER_CODE, POS.BUYSELL, POS.ORDER_PRICE, POS.KESSAI_PRICE, POS.LOT, TIC.NAME FROM POSITION POS \
+						INNER JOIN TICKER_INFO TIC ON POS.TICKER_CODE = TIC.TICKER_CODE \
+        				WHERE POS.USER_ID = ? AND POS.ACTIVE_FLAG = 1', [data['user_id']]).fetchall()
 
 def insert(con,data):
 	con.execute('INSERT INTO POSITION (USER_ID, TICKER_CODE, BUYSELL, ORDER_PRICE, KESSAI_PRICE, LOT) VALUES(?, ?, ?, ?, ?, ?)', \
@@ -26,4 +33,4 @@ def delete(con,data):
     con.execute('DELETE FROM POSITION WHERE USER_ID = ?',[data['user_id']])
 
 def kessai(con,data):
-    con.execute('UPDATE POSITION SET ACTIVE_FLAG = ? WHERE POSITION_ID = ?',[1, data['position_id']])
+    con.execute('UPDATE POSITION SET KESSAI_PRICE = ?, ACTIVE_FLAG = ? WHERE POSITION_ID = ?',[data['kessai_price'], 1, data['position_id']])

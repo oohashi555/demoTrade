@@ -35,17 +35,17 @@ def user_delete():
 def get_chart():
     form = request.get_json()
     
-#    ticker = form['ticker']
-#    history = yf.download(ticker,period = '1y', interval = '1wk')
-#    axes = history.axes[0]
-#    open = history.Open.values
-#    high = history.High.values
-#    low = history.Low.values
-#    close = history.Close.values
+    ticker = form['ticker']
+    history = yf.download(ticker,period = '1y', interval = '1wk')
+    axes = history.axes[0]
+    open = history.Open.values
+    high = history.High.values
+    low = history.Low.values
+    close = history.Close.values
     
     data = []
-    #for i in range(len(axes)):
-    #    data.append({'x':axes[i].timestamp() * 1000, 'o':open[i], 'h':high[i], 'l':low[i], 'c':close[i]})
+    for i in range(len(axes)):
+        data.append({'x':axes[i].timestamp() * 1000, 'o':open[i], 'h':high[i], 'l':low[i], 'c':close[i]})
     
     return jsonify(data)
 
